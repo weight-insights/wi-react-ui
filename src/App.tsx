@@ -1,10 +1,13 @@
+import WiSignin from './components/auth/WiSignin';
+
 function App() {
   return (
-    <div>
+    <>
       <header>
         Weight Insights
       </header>
-    </div>
+      <WiSignin />
+    </>
   );
 }
 
