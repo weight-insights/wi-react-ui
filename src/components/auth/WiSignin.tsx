@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import WiInputText from '../shared/WiInputText';
-import WiButton from '../shared/WiButton';
 
 function WiSignin() {
   const [email, setEmail] = useState('');
@@ -35,7 +34,6 @@ function WiSignin() {
       <form onSubmit={handleSubmit}>
         <WiInputText onChange={handleEmailChange} label='Email' placeholder='email' type='email' />
         <WiInputText onChange={handlePasswordChange} label='Password' placeholder='password' type='password' />
-        <WiButton>Submit</WiButton>
       </form>
     </div>
   );

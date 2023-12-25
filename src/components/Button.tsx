@@ -1,49 +1,53 @@
-import { ReactNode } from 'react';
+import { FunctionComponent } from 'react';
 
-interface WiButtonProps {
-  children: ReactNode;
+type ButtonProps = {
+  children?: React.ReactNode;
   primary?: boolean;
   secondary?: boolean;
   success?: boolean;
   warning?: boolean;
   danger?: boolean;
   disabled?: boolean;
-  onClick?: ((...args: any) => void)
-}
+  outline?: boolean;
+  rounded?: boolean;
+  onClick?: React.FormEventHandler<HTMLButtonElement>
+};
 
-/**
- * plain: white,
- * primary: blue,
- * secondary: black,
- * success: green,
- * warning: yellow,
- * danger: red
- * 
- * rounded,
- * outline
- */
-
-
-
-function WiButton({
-  children,
+const Button: FunctionComponent<ButtonProps> = ({
+  children = 'Submit',
   primary,
   secondary,
   success,
   warning,
   danger,
-  disabled = false,
-  onClick = () => {}
-}: WiButtonProps) {
+  disabled,
+  outline,
+  rounded,
+  onClick = (() => {})
+}) => {
+  let classes = `flex items-center px-3 py-1.5 border ${outline ? 'bg-white' : 'text-white'}${rounded && ' rounded-full'}`;
+  if (primary) {
+    classes += ` border-blue-500 ${outline ? 'text-blue-500' : 'bg-blue-500'}`;
+  } else if (secondary) {
+    classes += ` border-gray-900 ${outline ? 'text-gray-900' : 'bg-gray-900'}`;
+  } else if (success) {
+    classes += ` border-green-500 ${outline ? 'text-green-500' : 'bg-green-500'}`;
+  } else if (warning) {
+    classes += ` border-yellow-400 ${outline ? 'text-yellow-400' : 'bg-yellow-400'}`;
+  } else if (danger) {
+    classes += ` border-red-500 ${outline ? 'text-red-500' : 'bg-red-500'}`;
+  } else {
+    classes += ` border-black ${outline ? 'text-black' : 'bg-black'}`;
+  }
 
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <button onClick={onClick} className={classes} disabled={disabled}>
       {children}
     </button>
   );
-}
+};
 
-export default WiButton;
+export default Button;
 
 /*
 
