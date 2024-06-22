@@ -1,9 +1,6 @@
-import { Route, Routes } from 'react-router-dom';
-import AccordionPage from './pages/AccordionPage';
-import ButtonPage from './pages/ButtonPage';
-import DropdownPage from './pages/DropDownPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css'
 import NotFound from './pages/NotFound';
-import TempSignin from './pages/TempSignin';
 import Layout from './pages/Layout';
 
 // expamples of routers:
@@ -11,15 +8,17 @@ import Layout from './pages/Layout';
 function App() {
   return (
     <>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<DropdownPage />} />
-          <Route path='/accordion' element={<AccordionPage />} />
-          <Route path='/button' element={<ButtonPage />} />
-        </Route>
-        <Route path='/signin' element={<TempSignin />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+    <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<NotFound />} />
+            <Route path='/accordion' element={<NotFound />} />
+            <Route path='/button' element={<NotFound />} />
+          </Route>
+          <Route path='/signin' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
