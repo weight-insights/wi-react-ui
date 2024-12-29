@@ -10,7 +10,7 @@ import { Box, CssBaseline } from '@mui/material';
 
 function App() {
   return (
-    <Box sx={{textAlign: 'center'}}>
+    <Box>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
