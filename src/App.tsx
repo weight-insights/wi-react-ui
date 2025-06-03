@@ -6,6 +6,7 @@ import WiHome from './pages/WiHome';
 import WiPlay from './pages/WiPlay';
 import WiWeight from './pages/WiWeight';
 import WiPayment from './pages/WiPayment';
+import SignUp from './pages/SignUp';
 import { Box, CssBaseline } from '@mui/material';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path='/play' element={<WiPlay />} />
             <Route path='/weight' element={<WiWeight />} />
             <Route path='/payment' element={<WiPayment />} />
+            <Route path='/signup' element={<SignUp />} />
           </Route>
           <Route path='/signin' element={<NotFound />} />
           <Route path='*' element={<NotFound />} />
