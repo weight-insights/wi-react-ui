@@ -15,6 +15,7 @@ export default function WiButton({
   variant = 'contained',
   to,
   sx,
+
   onClick,
 }: WiButtonProps) {
   if (to) {
