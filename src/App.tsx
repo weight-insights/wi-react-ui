@@ -9,6 +9,7 @@ import WiPayment from './pages/WiPayment';
 import SignInUp from './pages/SignInUp';
 import { Box, CssBaseline } from '@mui/material';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Landing from './pages/Landing';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -28,7 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<ProtectedRoute isAuthenticated={isAuthenticated} logout={logout}/>}>
-            <Route index element={<WiHome/>} />
+            <Route index element={<Landing />} />
             <Route path='/play' element={<WiPlay />} />
             <Route path='/weight' element={<WiWeight />} />
             <Route path='/payment' element={<WiPayment />} />
