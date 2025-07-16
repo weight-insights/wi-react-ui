@@ -1,11 +1,13 @@
-import { Typography, Button, Tooltip } from '@mui/material';
+import { Typography, Button, Tooltip, Box } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'; //Add game icon
 import { GameDto } from '../types/GamesDto';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { useEffect } from 'react';
 import { setGames } from '../store/gamesSlice';
+import { disauthenticate } from '../store/userSlice';
+import WiMenu from '../components/WiMenu';
 
 const FAKE_GAMES: GameDto[] = [
     {
@@ -86,6 +88,12 @@ export default function Landing() {
       <Tooltip title="Create New Game">
         <Button variant="contained" style={{height: "80px", width: "130px", background: "#D0CCD0", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}><AddCircleOutlineOutlinedIcon fontSize="large"/></Button>
       </Tooltip>
+
+      <Box sx={ { maxWidth: '800px', margin: 'auto' } }>
+        <Outlet />
+        <Button variant="contained" onClick={() => {dispatch(disauthenticate()); navigate('/')}}>Logout</Button>
+        <WiMenu />
+      </Box>
       
     </div>
     </>

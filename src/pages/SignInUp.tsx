@@ -2,11 +2,18 @@ import { Typography, Button, TextField, Grid, Box, Link } from '@mui/material';
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { signIn, signUp } from '../services/user.service';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { authenticate, disauthenticate } from '../store/userSlice';
 
 
-export default function SignInUp({ login, logout, isSignIn }: { login: () => void; logout: () => void; isSignIn: boolean; }): ReactElement {
+//export default function SignInUp({ login, logout, isSignIn }: { login: () => void; logout: () => void; isSignIn: boolean; }): ReactElement {
+export default function SignInUp({ isSignIn }: { isSignIn: boolean; }): ReactElement {
 
-    logout();
+    //logout();
+    const dispatch = useDispatch();
+    dispatch(disauthenticate());
 
 
     const [email, setEmail] = useState<string>("");
@@ -44,9 +51,10 @@ export default function SignInUp({ login, logout, isSignIn }: { login: () => voi
             })
             .then((body: any) => {
                 const accessToken = body.accessToken;
-                localStorage.setItem('accessToken', accessToken);
-                console.log(localStorage.getItem('accessToken'));
-                login();
+                //localStorage.setItem('accessToken', accessToken);
+                dispatch(authenticate(accessToken));
+                //console.log(localStorage.getItem('accessToken'));
+                //login();
                 navigate('/');
                 
             })

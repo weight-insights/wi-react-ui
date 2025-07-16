@@ -1,6 +1,6 @@
 import { GameDto } from "../types/GamesDto";
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
     currentGame: GameDto;
@@ -22,7 +22,7 @@ const initialState: {
         vacationLength: 0,
     },
     games: []
-}
+};
 
 
 export const gamesSlice = createSlice({

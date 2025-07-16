@@ -9,34 +9,37 @@ import WiPayment from './pages/WiPayment';
 import SignInUp from './pages/SignInUp';
 import { Box, CssBaseline } from '@mui/material';
 import ProtectedRoute from './pages/ProtectedRoute';
-import Landing from './pages/Landing';
+import Layout from './pages/Layout';
 import { GameDto } from './types/GamesDto';
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  function login() : void {
+function App() {
+
+
+  //const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  /*function login() : void {
     setIsAuthenticated(true);
   }
 
   function logout() : void {
     setIsAuthenticated(false);
     localStorage.removeItem('accessToken');
-  }
+  }*/
 
   return (
     <Box>
           <CssBaseline />
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<ProtectedRoute isAuthenticated={isAuthenticated} logout={logout}/>}>
-                <Route index element={<Landing />} />
+              <Route path='/' element={<ProtectedRoute/>}>
+                <Route index element={<Layout />} />
                 <Route path='/play' element={<WiPlay />} />
                 <Route path='/weight' element={<WiWeight />} />
                 <Route path='/payment' element={<WiPayment />} />
               </Route>
-              <Route path='/sign-in' element={<SignInUp login={login} logout={logout} isSignIn={true} />} />
-              <Route path='/sign-up' element={<SignInUp login={login} logout={logout} isSignIn={false}/>} />
+              <Route path='/sign-in' element={<SignInUp isSignIn={true} />} />
+              <Route path='/sign-up' element={<SignInUp isSignIn={false}/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </BrowserRouter>
