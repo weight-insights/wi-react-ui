@@ -11,7 +11,7 @@ const initialState: {
         userId: '',
         email: '',
         name: '',
-        //defaultGameId?: ''
+        defaultGameId: ''
     },
     isAuthenticated: false
 };

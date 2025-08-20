@@ -1,8 +1,9 @@
-import { Navigate } from 'react-router-dom';
-import Landing from './Landing';
+import { Navigate, Outlet } from 'react-router-dom';
+//import Landing from './Landing';
 import { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
+import Layout from './Layout';
 
 
 //export function ProtectedRoute({isAuthenticated, logout} : {isAuthenticated: boolean; logout: () => void}): ReactElement {
@@ -11,8 +12,7 @@ export function ProtectedRoute(): ReactElement {
 
     return (
         isAuthenticated ?
-        <Landing/> : <Navigate to="/sign-in" />
-        //<Layout logout={logout}/> : <Navigate to="/sign-in" />
+        <Layout><><Outlet /></></Layout>: <Navigate to="/sign-in" />
     )
 }
 

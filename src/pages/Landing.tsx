@@ -7,11 +7,10 @@ import type { RootState } from '../store/store';
 import { useEffect } from 'react';
 import { setGames } from '../store/gamesSlice';
 import { disauthenticate } from '../store/userSlice';
-import WiMenu from '../components/WiMenu';
 
 const FAKE_GAMES: GameDto[] = [
     {
-        gameId: 'abc',
+        gameId: 'abc1',
         adminId: 'o31XRPpbamOTZ0znlYo7',
         name: 'Taliban 2025',
         info: 'fake info',
@@ -26,7 +25,7 @@ const FAKE_GAMES: GameDto[] = [
         vacationLength: 2
     },
     {
-        gameId: 'abc',
+        gameId: 'abc2',
         adminId: 'o31XRPpbamOTZ0znlYo7',
         name: 'Taliban 2025',
         info: 'fake info',
@@ -41,7 +40,7 @@ const FAKE_GAMES: GameDto[] = [
         vacationLength: 2
     },
     {
-        gameId: 'abc',
+        gameId: 'abc3',
         adminId: 'o31XRPpbamOTZ0znlYo7',
         name: 'Taliban 2025',
         info: 'fake info',
@@ -84,15 +83,22 @@ export default function Landing() {
         <Typography>Home</Typography>
     </div>
     <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start", alignContent: "flex-start", flexDirection: "row", margin: "auto", width: "300px", height: "500px", maxHeight: "100vh"}}>
-      {games?.map((game) => <Button variant="contained" onClick={() => navigate('/play')} style={{height: "80px", width: "130px", background: "#BC96E6", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}>{game.name}</Button>)}
+      {games?.map((game) => (
+        <Button
+            key={game.gameId}
+            variant="contained"
+            onClick={() => navigate('/play')}
+            style={{height: "80px", width: "130px", background: "#BC96E6", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}>
+            {game.name}
+        </Button>
+        ))}
       <Tooltip title="Create New Game">
         <Button variant="contained" style={{height: "80px", width: "130px", background: "#D0CCD0", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}><AddCircleOutlineOutlinedIcon fontSize="large"/></Button>
       </Tooltip>
 
       <Box sx={ { maxWidth: '800px', margin: 'auto' } }>
-        <Outlet />
         <Button variant="contained" onClick={() => {dispatch(disauthenticate()); navigate('/')}}>Logout</Button>
-        <WiMenu />
+        {/* <WiMenu /> */}
       </Box>
       
     </div>

@@ -1,13 +1,15 @@
-import { Outlet, useNavigate } from 'react-router-dom';
 import WiMenu from '../components/WiMenu';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
+import { ReactElement } from 'react';
 
 
-export default function Layout() {
+export default function Layout({children}:{children: ReactElement;}) {
 
   return (
     <Box sx={ { maxWidth: '800px', margin: 'auto' } }>
-      <Outlet />
+      <div>test Header</div>
+      {children}
+      <WiMenu />
     </Box>
   );
 }
