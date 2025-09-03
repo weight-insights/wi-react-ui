@@ -2,11 +2,13 @@ import { Typography, Button, TextField, Grid, Box, Link } from '@mui/material';
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { signIn, signUp } from '../services/user.service';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authenticate } from '../store/userSlice';
 
 
-export default function SignInUp({ login, logout, isSignIn }: { login: () => void; logout: () => void; isSignIn: boolean; }): ReactElement {
+export default function SignInUp({ isSignIn }: { isSignIn: boolean; }): ReactElement {
 
-    logout();
+    const dispatch = useDispatch();
 
 
     const [email, setEmail] = useState<string>("");
@@ -30,7 +32,7 @@ export default function SignInUp({ login, logout, isSignIn }: { login: () => voi
     function handleSubmit(e: FormEvent<HTMLFormElement>): void {
         e.preventDefault();
 
-        if(email && password && isSignIn) {
+        if (email && password && isSignIn) {
             console.log('email', email);
             console.log('password', password);
 
@@ -44,9 +46,7 @@ export default function SignInUp({ login, logout, isSignIn }: { login: () => voi
             })
             .then((body: any) => {
                 const accessToken = body.accessToken;
-                localStorage.setItem('accessToken', accessToken);
-                console.log(localStorage.getItem('accessToken'));
-                login();
+                dispatch(authenticate(accessToken));
                 navigate('/');
                 
             })
@@ -55,11 +55,8 @@ export default function SignInUp({ login, logout, isSignIn }: { login: () => voi
             });
         } else {
             const name = username ? username : email;
-            signUp(email, password, name);
+            signUp(email, password, name).then(() => navigate('/sign-in'));
         }
-
-
-        
     }
 
         
@@ -68,48 +65,39 @@ export default function SignInUp({ login, logout, isSignIn }: { login: () => voi
 
   return (
     <>
-    <Grid container display="flex" justifyContent="center" alignItems="center" direction="column" spacing={5} style={{minHeight: "100vh"}}>
-        
-        <form noValidate onSubmit={handleSubmit}>
-            <Grid item>
+    <form noValidate onSubmit={handleSubmit}>
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center", flexDirection: "column", margin: "auto", width: "300px", height: "100vh", maxHeight: "100vh"}}>
+            <div style={{display: "flex", flexWrap: "wrap", alignContent: "flex-start", margin: "10px", height: "50px", width: "226px"}}>
                 <Typography>{isSignIn? 'Sign In' : 'Sign Up'} </Typography>
-            </Grid>
-
-            <Grid item>
+            </div>
+            <div style={{margin: "10px"}}>
                 <Typography>Email</Typography>
                 <TextField required id="email" label="Required" value = {email} onChange= {handleEmailChange} variant="outlined" />
-            </Grid>
-
-            <Grid item>
-                <Typography>Password</Typography>
-            
-
+            </div>
+            <div style={{margin: "10px"}}>
+                    <Typography>Password</Typography>
                 <TextField required id="password" label="Required" value ={password} onChange= {handlePasswordChange} variant="outlined" />
-            </Grid>
-      
-            <Grid item>
+            </div>
+            <div style={{margin: "10px"}}>
                 {isSignIn ? 
                 <Button type="submit" variant="contained">Sign In</Button> :
                 <Box>
                     <Typography>Username</Typography>
                     <TextField required id="username" value ={username} onChange = {handleUserNameChange} variant="outlined" />
                 </Box> 
-                }
-            </Grid>
-
-            <Grid item>
+            }
+            </div>
+            <div style={{margin: "10px"}}>
                 {isSignIn ?
                 <Box>
                     <Typography>Not Registered?</Typography>
                     <Link component="button" variant="body2" onClick={() => navigate('/sign-up')}>Sign Up</Link>
                 </Box>  :
                 <Button type="submit" variant="contained">Sign Up</Button>}
-            </Grid>
-
-        </form>
-        
-    </Grid>
-      
+            </div>
+        </div>
+    </form>
+    
     </>
   );
 }
