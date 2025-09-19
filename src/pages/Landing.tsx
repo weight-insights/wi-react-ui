@@ -7,55 +7,8 @@ import type { RootState } from '../store/store';
 import { useEffect } from 'react';
 import { setGames } from '../store/gamesSlice';
 import { disauthenticate } from '../store/userSlice';
+import { getAllUsersGames } from '../services/game.service';
 
-const FAKE_GAMES: GameDto[] = [
-    {
-        gameId: 'abc1',
-        adminId: 'o31XRPpbamOTZ0znlYo7',
-        name: 'Taliban 2025',
-        info: 'fake info',
-        startDate: '2025-07-09',
-        gameLength: 20, // total number of weight events, including the first and final
-        gameTimeZone: 'EST',
-        gamePeriod: 7, // number of days between weight events, standard of 7 (1 week)
-        minWeightLoss: 0.1,
-        weightUnit: 'kg',
-        fee: 5,
-        currency: 'CAD',
-        vacationLength: 2
-    },
-    {
-        gameId: 'abc2',
-        adminId: 'o31XRPpbamOTZ0znlYo7',
-        name: 'Taliban 2025',
-        info: 'fake info',
-        startDate: '2025-07-09',
-        gameLength: 20, // total number of weight events, including the first and final
-        gameTimeZone: 'EST',
-        gamePeriod: 7, // number of days between weight events, standard of 7 (1 week)
-        minWeightLoss: 0.1,
-        weightUnit: 'kg',
-        fee: 5,
-        currency: 'CAD',
-        vacationLength: 2
-    },
-    {
-        gameId: 'abc3',
-        adminId: 'o31XRPpbamOTZ0znlYo7',
-        name: 'Taliban 2025',
-        info: 'fake info',
-        startDate: '2025-07-09',
-        gameLength: 20, // total number of weight events, including the first and final
-        gameTimeZone: 'EST',
-        gamePeriod: 7, // number of days between weight events, standard of 7 (1 week)
-        minWeightLoss: 0.1,
-        weightUnit: 'kg',
-        fee: 5,
-        currency: 'CAD',
-        vacationLength: 2
-    }
-
-];
 
 export default function Landing() {
     
@@ -65,7 +18,22 @@ export default function Landing() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(setGames(FAKE_GAMES));
+
+      getAllUsersGames()
+                  .then((response) => {
+                      console.log('response status', response.status, typeof response.status);
+                      if (response.status >= 400) {
+                          throw new Error('Failed to get this user\'s games');
+                      }
+                      return response.json();
+                  })
+                  .then((body: any) => {
+                      dispatch(setGames(body));
+                  })
+                  .catch((error) => {
+                      console.log('error:', error);
+                  });
+
     }, []);
 
     const colours = ["FFC09F", "FFEE93", "A0CED9", "ADF7B6", "BC96E6"];
