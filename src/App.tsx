@@ -83,6 +83,21 @@ const FAKE_GAMES: GameDto[] = [
           fee: 5,
           currency: 'CAD',
           vacationLength: 2
+      },
+      {
+          gameId: 'test1',
+          adminId: 'o31XRPpbamOTZ0znlYo7',
+          name: 'Taliban 2025',
+          info: 'fake info',
+          startDate: '2025-07-09',
+          gameLength: 20, // total number of weight events, including the first and final
+          gameTimeZone: 'EST',
+          gamePeriod: 7, // number of days between weight events, standard of 7 (1 week)
+          minWeightLoss: 0.1,
+          weightUnit: 'kg',
+          fee: 5,
+          currency: 'CAD',
+          vacationLength: 2
       }
   
   ];
