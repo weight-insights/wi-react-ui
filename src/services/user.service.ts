@@ -13,4 +13,3 @@ export function signUp(email: string, password: string, name: string): Promise<a
     const body = JSON.stringify({ email, password, name });
     return fetch(url, {method, headers, body});
 }
-
