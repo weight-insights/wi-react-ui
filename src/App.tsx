@@ -12,6 +12,8 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import Layout from './pages/Layout';
 import { GameDto } from './types/GamesDto';
 import Landing from './pages/Landing';
+import { GameLanding } from './pages/GameLanding';
+import FirstTimeOnGame from './pages/FirstTimeOnGame';
 
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
         <Routes>
           <Route path='/' element={<ProtectedRoute/>}>
             <Route index element={<Landing />} />
-            <Route path='/play' element={<WiPlay />} />
+            <Route path='/play' element={<GameLanding />} />
+            <Route path='/set-weight-goal' element={<FirstTimeOnGame />} />
             <Route path='/weight' element={<WiWeight />} />
             <Route path='/payment' element={<WiPayment />} />
           </Route>

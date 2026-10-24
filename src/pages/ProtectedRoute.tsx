@@ -6,7 +6,6 @@ import type { RootState } from '../store/store';
 import Layout from './Layout';
 
 
-//export function ProtectedRoute({isAuthenticated, logout} : {isAuthenticated: boolean; logout: () => void}): ReactElement {
 export function ProtectedRoute(): ReactElement {
     const {isAuthenticated} = useSelector((state: RootState) => state.user);
 

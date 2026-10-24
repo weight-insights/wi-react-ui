@@ -9,6 +9,8 @@ export async function authApiCall(method: string, url: string, payload?: any) {
 
 }
 
+
+
 export async function signInUpApiCall( url: string, payload?: any) {
     const headers = { 'Content-Type': 'application/json' };
     const method = 'POST';
