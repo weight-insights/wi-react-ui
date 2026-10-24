@@ -11,7 +11,7 @@ const initialState: {
         userId: '',
         gameId: '',
         name: '',
-        weightGoal: 0,
+        weightGoal: 45,
         vacationStartDate: '',
         //payments?: Record<'', 0>,
         //weights?: Record<'', 0>;
