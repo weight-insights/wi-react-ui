@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { useEffect } from 'react';
-import { setGames } from '../store/gamesSlice';
+import { setGames, setCurrentGame } from '../store/gamesSlice';
 import { disauthenticate } from '../store/userSlice';
 import { getAllUsersGames } from '../services/game.service';
 
@@ -55,7 +55,7 @@ export default function Landing() {
         <Button
             key={game.gameId}
             variant="contained"
-            onClick={() => navigate('/play')}
+            onClick={() => {dispatch(setCurrentGame(game)); navigate('/play')}}
             style={{height: "80px", width: "130px", background: "#BC96E6", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}>
             {game.name}
         </Button>
