@@ -230,7 +230,6 @@ export default function CreateGame() {
         throw new Error('The server did not return a game ID.');
       }
 
-      // Store selected game and navigate to its dashboard.
       dispatch(setCurrentGame(newGame));
       navigate('/play');
 
@@ -254,7 +253,6 @@ export default function CreateGame() {
         py: 3,
       }}
     >
-      {/* BACK BUTTON */}
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate('/')}
@@ -264,7 +262,6 @@ export default function CreateGame() {
         Back to Home
       </Button>
 
-      {/* MAIN FORM */}
       <Paper
         variant="outlined"
         sx={{
@@ -273,7 +270,6 @@ export default function CreateGame() {
           bgcolor: 'background.paper',
         }}
       >
-        {/* HEADER */}
         <Box
           sx={{
             px: { xs: 2.5, sm: 4 },
@@ -281,17 +277,11 @@ export default function CreateGame() {
             bgcolor: '#F7F8FC',
           }}
         >
-          <Typography variant="h4" fontWeight={700}>
-            Create a Game
+          <Typography variant="h5" fontWeight={500}>
+            Create a new Game
           </Typography>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ mt: 1 }}
-          >
-            Set up your weight challenge and invite participants later.
-          </Typography>
+          
         </Box>
 
         <Divider />
@@ -303,14 +293,12 @@ export default function CreateGame() {
           sx={{ p: { xs: 2.5, sm: 4 } }}
         >
           <Stack spacing={3}>
-            {/* ERROR MESSAGE */}
             {error && (
               <Alert severity="error" onClose={() => setError('')}>
                 {error}
               </Alert>
             )}
 
-            {/* GAME NAME */}
             <TextField
               label="Game Name"
               placeholder="e.g. Summer Weight Challenge"
@@ -322,7 +310,6 @@ export default function CreateGame() {
               helperText="Give your challenge a name."
             />
 
-            {/* GAME FREQUENCY */}
             <TextField
               select
               fullWidth
