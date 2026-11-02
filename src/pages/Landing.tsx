@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { useEffect } from 'react';
-import { setGames } from '../store/gamesSlice';
+import { setGames, setCurrentGame } from '../store/gamesSlice';
 import { disauthenticate } from '../store/userSlice';
 import { getAllUsersGames } from '../services/game.service';
 
@@ -55,18 +55,32 @@ export default function Landing() {
         <Button
             key={game.gameId}
             variant="contained"
-            onClick={() => navigate('/play')}
+            onClick={() => {dispatch(setCurrentGame(game)); navigate('/play')}}
             style={{height: "80px", width: "130px", background: "#BC96E6", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}>
             {game.name}
         </Button>
         ))}
       <Tooltip title="Create New Game">
-        <Button variant="contained" style={{height: "80px", width: "130px", background: "#D0CCD0", color: "white", margin: "10px", textAlign: "center", alignContent: "center"}}><AddCircleOutlineOutlinedIcon fontSize="large"/></Button>
-      </Tooltip>
+      <Button
+            variant="contained"
+            onClick={() => navigate('/create-game')}
+            sx={{
+            height: 80,
+            width: 130,
+            backgroundColor: '#D0CCD0',
+            color: 'white',
+            m: 1.25,
+            '&:hover': {
+              backgroundColor: '#B7B1B7',
+            },
+          }}
+        >
+        <AddCircleOutlineOutlinedIcon fontSize="large" />
+      </Button>
+          </Tooltip>
 
       <Box sx={ { maxWidth: '800px', margin: 'auto' } }>
         <Button variant="contained" onClick={() => {dispatch(disauthenticate()); navigate('/')}}>Logout</Button>
-        {/* <WiMenu /> */}
       </Box>
       
     </div>
