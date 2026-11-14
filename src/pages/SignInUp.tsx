@@ -1,4 +1,4 @@
-import { Typography, Button, TextField, Grid, Box, Link } from '@mui/material';
+import { Typography, Button, TextField, Grid, Box, Link, Alert, Divider, Paper, Stack } from '@mui/material';
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { signIn, signUp } from '../services/user.service';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,9 @@ export default function SignInUp({ isSignIn }: { isSignIn: boolean; }): ReactEle
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [username, setUserName] = useState<string>("");
+    const [error, setError] = useState<string>('');
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     
@@ -31,6 +34,12 @@ export default function SignInUp({ isSignIn }: { isSignIn: boolean; }): ReactEle
 
     function handleSubmit(e: FormEvent<HTMLFormElement>): void {
         e.preventDefault();
+        setError('');
+
+        const EmailSinNada = email.trim();
+        if (!EmailSinNada || !password.trim()){
+            setError('Email y password son requeridos hijodeputa asi que pon o TE MATO')
+        }
 
         if (email && password && isSignIn) {
             console.log('email', email);
@@ -64,40 +73,105 @@ export default function SignInUp({ isSignIn }: { isSignIn: boolean; }): ReactEle
     
 
   return (
-    <>
-    <form noValidate onSubmit={handleSubmit}>
-        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center", flexDirection: "column", margin: "auto", width: "300px", height: "100vh", maxHeight: "100vh"}}>
-            <div style={{display: "flex", flexWrap: "wrap", alignContent: "flex-start", margin: "10px", height: "50px", width: "226px"}}>
-                <Typography>{isSignIn? 'Sign In' : 'Sign Up'} </Typography>
-            </div>
-            <div style={{margin: "10px"}}>
-                <Typography>Email</Typography>
-                <TextField required id="email" label="Required" value = {email} onChange= {handleEmailChange} variant="outlined" />
-            </div>
-            <div style={{margin: "10px"}}>
-                    <Typography>Password</Typography>
-                <TextField required id="password" label="Required" value ={password} onChange= {handlePasswordChange} variant="outlined" />
-            </div>
-            <div style={{margin: "10px"}}>
-                {isSignIn ? 
-                <Button type="submit" variant="contained">Sign In</Button> :
-                <Box>
-                    <Typography>Username</Typography>
-                    <TextField required id="username" value ={username} onChange = {handleUserNameChange} variant="outlined" />
-                </Box> 
-            }
-            </div>
-            <div style={{margin: "10px"}}>
-                {isSignIn ?
-                <Box>
-                    <Typography>Not Registered?</Typography>
-                    <Link component="button" variant="body2" onClick={() => navigate('/sign-up')}>Sign Up</Link>
-                </Box>  :
-                <Button type="submit" variant="contained">Sign Up</Button>}
-            </div>
-        </div>
-    </form>
-    
-    </>
+    <Box
+        sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            px: 2,
+            py:4
+        }}
+        >
+        <Paper
+                variant = "outlined"
+                sx = {{
+                width: '100%',
+                maxWidth:420,
+                borderRadius:2,
+                overflow: 'hidden'
+            }}
+        >
+            <Box sx = {{ py:2, textAlign: 'center'}}>
+                <Typography variant="h6" fontWeight={700}>
+                    Welcome to Weight Insights
+                </Typography>
+            </Box>
+            <Divider />
+
+            <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx = {{ p: {xs:3, sm:4 } }}
+            >
+                <Stack spacing = {2.5}>
+                    <Typography variant = "h4" fontWeight = {600}>
+                        {isSignIn ? 'Sign In' : 'Sign Up'}
+                    </Typography>
+                    {error && <Alert severity = "error">{error}
+                        </Alert>}
+
+                        <TextField
+                        fullWidth
+                        required
+                        label = "Email"
+                        type = 'email'
+                        autoComplete = 'email'
+                        value = {email}
+                        onChange = {(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                        fullWidth
+                        required
+                        label = "Password"
+                        type = "password"
+                        autoComplete = { isSignIn ? 'current-password' : 'new-password'}
+                        value = {password}
+                        onChange = {(e) => setPassword(e.target.value)}
+                        />
+
+
+                        {!isSignIn && (
+                            <TextField
+                            fullWidth
+                            label = "Username"
+                            value = {username}
+                            onChange = {(e) => setUserName(e.target.value)}
+                            />
+
+                        )}
+                        <Button
+                        type="submit"
+                        variant = "contained"
+                        size = "large"
+                        disabled = {loading}
+                        >
+                            {loading ? 'please wait...' : isSignIn ? 'Sign In' : 'Sign Up'}
+                            </Button>
+                        
+                        {isSignIn && (
+                            <Box sx = {{ textAlign: 'center'}}>
+                                <Typography
+                                variant= "body2">
+                                    Do not have an account?
+                                </Typography>
+                                <Link component = "button"
+                                type = "button"
+                                onClick = {() => navigate( '/sign-up')}
+                                >
+                                    Sign Up
+                                </Link>
+
+
+
+                            </Box>
+                        )}
+
+                </Stack>
+            </Box>
+            
+        </Paper>
+        </Box>
   );
 }
